@@ -1,13 +1,14 @@
 // ================= Firebase configuration =================
 // This is the web configuration from your ShopZone Firebase project.
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDvRecNPCcfFYJGJGMmwM01W6PsoZbag3nU",
+  apiKey: "AIzaSyDvRecNPCcfFY7JGMmwMO1w6PsoZbag3nU",
   authDomain: "shopzone-project-7ad08.firebaseapp.com",
   projectId: "shopzone-project-7ad08",
   storageBucket: "shopzone-project-7ad08.firebasestorage.app",
   messagingSenderId: "198355900077",
   appId: "1:198355900077:web:7e0c72cd590f266d8ad824",
-  measurementId: "G-M0NLS2F7VQ"
+  measurementId: "G-M8NLS2F7VQ"
 };
 
 firebase.initializeApp(firebaseConfig);
