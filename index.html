@@ -1,32 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ShopZone | Online Shopping</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ShopZone | Online Shopping</title>
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
 </head>
+
 <body>
-<header class="topbar">
-  <a class="brand" href="#" onclick="showHome()">ShopZone</a>
-  <div class="search-wrap">
-    <input id="search" type="search" placeholder="Search phones, laptops, watches..." oninput="renderProducts()">
-  </div>
-  <nav>
-    <button onclick="showHome()">Home</button>
-    <button onclick="showProducts()">Products</button>
-    <button onclick="showCart()">Cart (<span id="cartCount">0</span>)</button>
-    <button id="loginBtn" onclick="showLogin()">Login</button>
-  </nav>
-</header>
 
-<main id="app"></main>
+  <!-- ================= Header ================= -->
 
-<footer>© 2026 ShopZone • Web Development Practical</footer>
+  <header class="topbar">
 
-<!-- Firebase v10 compat SDK: convenient for a plain HTML project -->
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="js/app.js"></script>
+    <a
+      class="brand"
+      href="#"
+      onclick="showHome(); return false;"
+    >
+      ShopZone
+    </a>
+
+
+    <!-- Search -->
+
+    <div class="search-wrap">
+
+      <input
+        id="search"
+        type="search"
+        placeholder="Search phones, laptops, watches..."
+        oninput="renderProducts()"
+      >
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <nav>
+
+      <button onclick="showHome()">
+        Home
+      </button>
+
+      <button onclick="showProducts()">
+        Products
+      </button>
+
+      <button onclick="showCart()">
+        Cart (
+        <span id="cartCount">0</span>
+        )
+      </button>
+
+      <button
+        id="loginBtn"
+        onclick="showLogin()"
+      >
+        Login
+      </button>
+
+    </nav>
+
+  </header>
+
+
+  <!-- ================= Main ================= -->
+
+  <main id="app"></main>
+
+
+  <!-- ================= Footer ================= -->
+
+  <footer>
+    © 2026 ShopZone • Web Development Practical
+  </footer>
+
+
+  <!-- ================= Firebase ================= -->
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+
+
+  <!-- ================= ShopZone JavaScript ================= -->
+
+  <script src="js/app.js"></script>
+
 </body>
+
 </html>
