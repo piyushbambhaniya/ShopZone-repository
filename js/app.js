@@ -1,13 +1,13 @@
-// ======================================================
+// =====================================================
 // SHOPZONE - app.js
-// Web Development Practical
-// Firebase Phone OTP + Products + Cart
-// ======================================================
+// Firebase v10 Compat
+// Phone OTP Login + Products + Cart
+// =====================================================
 
 
-// ======================================================
-// FIREBASE CONFIGURATION
-// ======================================================
+// =====================================================
+// FIREBASE CONFIG
+// =====================================================
 
 const firebaseConfig = {
   apiKey: "AIzaSyDvRecNPCcfFY7JGMmwMO1w6PsoZbag3nU",
@@ -21,24 +21,26 @@ const firebaseConfig = {
 
 
 // Start Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 
 
-// ======================================================
-// GLOBAL VARIABLES
-// ======================================================
+// =====================================================
+// VARIABLES
+// =====================================================
+
+const app = document.getElementById("app");
 
 let confirmationResult = null;
 let recaptchaVerifier = null;
 
-const app = document.getElementById("app");
 
-
-// ======================================================
+// =====================================================
 // PRODUCTS
-// ======================================================
+// =====================================================
 
 const products = [
 
@@ -46,8 +48,8 @@ const products = [
     id: 1,
     name: "iPhone 16",
     brand: "Apple",
-    price: 74999,
     category: "Mobile",
+    price: 74999,
     img: "https://images.unsplash.com/photo-1592286927505-2fd7d2c4f0a4?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -55,8 +57,8 @@ const products = [
     id: 2,
     name: "Galaxy S25",
     brand: "Samsung",
-    price: 79999,
     category: "Mobile",
+    price: 79999,
     img: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -64,8 +66,8 @@ const products = [
     id: 3,
     name: "OnePlus 13",
     brand: "OnePlus",
-    price: 69999,
     category: "Mobile",
+    price: 69999,
     img: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -73,8 +75,8 @@ const products = [
     id: 4,
     name: "Google Pixel 9",
     brand: "Google",
-    price: 74999,
     category: "Mobile",
+    price: 74999,
     img: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -82,8 +84,8 @@ const products = [
     id: 5,
     name: "Redmi Note Series",
     brand: "Xiaomi",
-    price: 17999,
     category: "Mobile",
+    price: 17999,
     img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -91,8 +93,8 @@ const products = [
     id: 6,
     name: "Vivo V Series",
     brand: "Vivo",
-    price: 29999,
     category: "Mobile",
+    price: 29999,
     img: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -100,8 +102,8 @@ const products = [
     id: 7,
     name: "OPPO Reno Series",
     brand: "OPPO",
-    price: 32999,
     category: "Mobile",
+    price: 32999,
     img: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -109,8 +111,8 @@ const products = [
     id: 8,
     name: "MacBook Air",
     brand: "Apple",
-    price: 99999,
     category: "Laptop",
+    price: 99999,
     img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -118,8 +120,8 @@ const products = [
     id: 9,
     name: "Dell Inspiron",
     brand: "Dell",
-    price: 65999,
     category: "Laptop",
+    price: 65999,
     img: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -127,8 +129,8 @@ const products = [
     id: 10,
     name: "HP Pavilion",
     brand: "HP",
-    price: 61999,
     category: "Laptop",
+    price: 61999,
     img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -136,8 +138,8 @@ const products = [
     id: 11,
     name: "Lenovo IdeaPad",
     brand: "Lenovo",
-    price: 55999,
     category: "Laptop",
+    price: 55999,
     img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -145,8 +147,8 @@ const products = [
     id: 12,
     name: "ASUS ROG Laptop",
     brand: "ASUS",
-    price: 119999,
     category: "Laptop",
+    price: 119999,
     img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -154,8 +156,8 @@ const products = [
     id: 13,
     name: "AirPods Pro",
     brand: "Apple",
-    price: 24999,
     category: "Audio",
+    price: 24999,
     img: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -163,8 +165,8 @@ const products = [
     id: 14,
     name: "Galaxy Buds",
     brand: "Samsung",
-    price: 12999,
     category: "Audio",
+    price: 12999,
     img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -172,8 +174,8 @@ const products = [
     id: 15,
     name: "Apple Watch",
     brand: "Apple",
-    price: 44999,
     category: "Watch",
+    price: 44999,
     img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=700&q=85"
   },
 
@@ -181,38 +183,63 @@ const products = [
     id: 16,
     name: "Samsung Smart Watch",
     brand: "Samsung",
-    price: 24999,
     category: "Watch",
+    price: 24999,
     img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=85"
   }
 
 ];
 
 
-// ======================================================
+// =====================================================
 // CART
-// ======================================================
+// =====================================================
 
-let cart = JSON.parse(
-  localStorage.getItem("shopzoneCart") || "[]"
-);
+let cart = [];
 
-
-// ======================================================
-// MONEY FORMAT
-// ======================================================
-
-function money(number) {
-
-  return "₹" +
-    Number(number).toLocaleString("en-IN");
-
+try {
+  cart = JSON.parse(
+    localStorage.getItem("shopzoneCart") || "[]"
+  );
+} catch (error) {
+  cart = [];
 }
 
 
-// ======================================================
+// =====================================================
+// MONEY
+// =====================================================
+
+function money(value) {
+  return "₹" + Number(value).toLocaleString("en-IN");
+}
+
+
+// =====================================================
+// CART COUNT
+// =====================================================
+
+function updateCartCount() {
+
+  const element =
+    document.getElementById("cartCount");
+
+  if (!element) return;
+
+  const count =
+    cart.reduce(
+      (total, item) =>
+        total + Number(item.qty || 0),
+      0
+    );
+
+  element.textContent = count;
+}
+
+
+// =====================================================
 // SAVE CART
-// ======================================================
+// =====================================================
 
 function saveCart() {
 
@@ -222,35 +249,12 @@ function saveCart() {
   );
 
   updateCartCount();
-
 }
 
 
-// ======================================================
-// UPDATE CART COUNT
-// ======================================================
-
-function updateCartCount() {
-
-  const cartCount =
-    document.getElementById("cartCount");
-
-  if (!cartCount) return;
-
-  const total =
-    cart.reduce(
-      (sum, item) => sum + item.qty,
-      0
-    );
-
-  cartCount.textContent = total;
-
-}
-
-
-// ======================================================
-// HOME PAGE
-// ======================================================
+// =====================================================
+// HOME
+// =====================================================
 
 function showHome() {
 
@@ -267,7 +271,7 @@ function showHome() {
         </p>
 
         <p>
-          Mobiles • Laptops • Audio • Smart Watches
+          Mobiles • Laptops • Audio • Watches
         </p>
 
         <button
@@ -289,36 +293,32 @@ function showHome() {
 
       <div class="categories">
 
-
-        <div
-          class="category"
-          onclick="showProducts()">
+        <div class="category"
+             onclick="showProducts()">
 
           <img
             src="${products[0].img}"
-            alt="Mobile">
+            alt="Mobiles">
 
           <h3>Mobiles</h3>
 
         </div>
 
 
-        <div
-          class="category"
-          onclick="showProducts()">
+        <div class="category"
+             onclick="showProducts()">
 
           <img
-            src="${products[8].img}"
-            alt="Laptop">
+            src="${products[7].img}"
+            alt="Laptops">
 
           <h3>Laptops</h3>
 
         </div>
 
 
-        <div
-          class="category"
-          onclick="showProducts()">
+        <div class="category"
+             onclick="showProducts()">
 
           <img
             src="${products[12].img}"
@@ -329,44 +329,41 @@ function showHome() {
         </div>
 
 
-        <div
-          class="category"
-          onclick="showProducts()">
+        <div class="category"
+             onclick="showProducts()">
 
           <img
             src="${products[14].img}"
-            alt="Watch">
+            alt="Watches">
 
           <h3>Smart Watches</h3>
 
         </div>
-
 
       </div>
 
     </section>
 
   `;
-
 }
 
 
-// ======================================================
-// PRODUCT PAGE
-// ======================================================
+// =====================================================
+// PRODUCTS
+// =====================================================
 
 function renderProducts() {
 
-  const searchBox =
+  const searchElement =
     document.getElementById("search");
 
-  const search =
-    searchBox
-      ? searchBox.value.toLowerCase()
+  const query =
+    searchElement
+      ? searchElement.value.toLowerCase().trim()
       : "";
 
 
-  const filteredProducts =
+  const list =
     products.filter(product => {
 
       const text =
@@ -378,7 +375,7 @@ function renderProducts() {
 
       return text
         .toLowerCase()
-        .includes(search);
+        .includes(query);
 
     });
 
@@ -387,46 +384,52 @@ function renderProducts() {
 
     <section class="section">
 
-      <h2>All Products</h2>
+      <h2>Products</h2>
 
       <div class="products">
 
         ${
-          filteredProducts.map(product => `
+          list.length
+            ? list.map(product => `
 
-            <div class="product-card">
+              <div class="product-card">
 
-              <img
-                src="${product.img}"
-                alt="${product.name}"
-              >
+                <img
+                  src="${product.img}"
+                  alt="${product.name}"
+                >
 
-              <small>
-                ${product.brand}
-              </small>
+                <small>
+                  ${product.brand}
+                </small>
 
-              <h3>
-                ${product.name}
-              </h3>
+                <h3>
+                  ${product.name}
+                </h3>
 
+                <p>
+                  ${product.category}
+                </p>
+
+                <strong>
+                  ${money(product.price)}
+                </strong>
+
+                <button
+                  onclick="addToCart(${product.id})">
+
+                  Add to Cart
+
+                </button>
+
+              </div>
+
+            `).join("")
+            : `
               <p>
-                ${product.category}
+                No products found.
               </p>
-
-              <strong>
-                ${money(product.price)}
-              </strong>
-
-              <button
-                onclick="addToCart(${product.id})">
-
-                Add to Cart
-
-              </button>
-
-            </div>
-
-          `).join("")
+            `
         }
 
       </div>
@@ -434,20 +437,17 @@ function renderProducts() {
     </section>
 
   `;
-
 }
 
 
 function showProducts() {
-
   renderProducts();
-
 }
 
 
-// ======================================================
-// ADD TO CART
-// ======================================================
+// =====================================================
+// ADD CART
+// =====================================================
 
 function addToCart(id) {
 
@@ -455,7 +455,6 @@ function addToCart(id) {
     products.find(
       item => item.id === id
     );
-
 
   if (!product) return;
 
@@ -473,11 +472,8 @@ function addToCart(id) {
   } else {
 
     cart.push({
-
       ...product,
-
       qty: 1
-
     });
 
   }
@@ -490,13 +486,12 @@ function addToCart(id) {
     product.name +
     " added to cart!"
   );
-
 }
 
 
-// ======================================================
-// CHANGE QUANTITY
-// ======================================================
+// =====================================================
+// CART
+// =====================================================
 
 function changeQty(id, change) {
 
@@ -504,7 +499,6 @@ function changeQty(id, change) {
     cart.find(
       product => product.id === id
     );
-
 
   if (!item) return;
 
@@ -525,30 +519,25 @@ function changeQty(id, change) {
   saveCart();
 
   showCart();
-
 }
 
 
-// ======================================================
-// CART PAGE
-// ======================================================
-
 function showCart() {
 
-  if (cart.length === 0) {
+  if (!cart.length) {
 
     app.innerHTML = `
 
       <section class="section">
 
-        <div class="cart-card empty">
+        <div class="cart-card">
 
           <h2>
             Your Cart is Empty
           </h2>
 
           <p>
-            Add products to your cart.
+            Add products to continue.
           </p>
 
           <button
@@ -565,7 +554,6 @@ function showCart() {
     `;
 
     return;
-
   }
 
 
@@ -598,7 +586,6 @@ function showCart() {
               width="70"
             >
 
-
             <div>
 
               <h3>
@@ -611,25 +598,18 @@ function showCart() {
 
             </div>
 
-
             <button
-              onclick="changeQty(${item.id}, -1)">
-
+              onclick="changeQty(${item.id},-1)">
               −
-
             </button>
-
 
             <span>
               ${item.qty}
             </span>
 
-
             <button
-              onclick="changeQty(${item.id}, 1)">
-
+              onclick="changeQty(${item.id},1)">
               +
-
             </button>
 
           </div>
@@ -637,11 +617,8 @@ function showCart() {
         `).join("")}
 
 
-        <h2 class="total">
-
-          Total:
-          ${money(total)}
-
+        <h2>
+          Total: ${money(total)}
         </h2>
 
 
@@ -657,13 +634,12 @@ function showCart() {
     </section>
 
   `;
-
 }
 
 
-// ======================================================
+// =====================================================
 // CHECKOUT
-// ======================================================
+// =====================================================
 
 function checkout() {
 
@@ -676,7 +652,6 @@ function checkout() {
     showLogin();
 
     return;
-
   }
 
 
@@ -690,28 +665,23 @@ function checkout() {
           Checkout
         </h2>
 
-
-        <p class="notice">
-
+        <p>
           Logged in as:
           ${auth.currentUser.phoneNumber}
-
         </p>
-
 
         <input
           id="address"
           type="text"
-          placeholder="Enter delivery address"
+          placeholder="Delivery Address"
           style="
             width:100%;
             padding:13px;
             margin:12px 0;
-            border:1px solid #ccd2da;
+            border:1px solid #ccc;
             border-radius:7px;
           "
         >
-
 
         <button
           onclick="placeOrder()">
@@ -725,13 +695,12 @@ function checkout() {
     </section>
 
   `;
-
 }
 
 
-// ======================================================
+// =====================================================
 // PLACE ORDER
-// ======================================================
+// =====================================================
 
 function placeOrder() {
 
@@ -748,7 +717,6 @@ function placeOrder() {
     );
 
     return;
-
   }
 
 
@@ -763,31 +731,32 @@ function placeOrder() {
 
       <div class="cart-card">
 
-        <div class="success">
+        <h2>
+          Order Placed Successfully
+        </h2>
 
-          <h2>
-            Order Placed Successfully!
-          </h2>
+        <p>
+          ShopZone college project demo.
+        </p>
 
-          <p>
-            This is a college-project
-            demo checkout.
-          </p>
+        <button
+          onclick="showProducts()">
 
-        </div>
+          Continue Shopping
+
+        </button>
 
       </div>
 
     </section>
 
   `;
-
 }
 
 
-// ======================================================
+// =====================================================
 // LOGIN PAGE
-// ======================================================
+// =====================================================
 
 function showLogin() {
 
@@ -800,7 +769,6 @@ function showLogin() {
         <h2>
           Login to ShopZone
         </h2>
-
 
         <p>
           Enter your Indian mobile number.
@@ -818,7 +786,6 @@ function showLogin() {
 
         <div
           id="recaptcha-container">
-
         </div>
 
 
@@ -833,7 +800,6 @@ function showLogin() {
 
         <div
           id="otpArea">
-
         </div>
 
       </div>
@@ -843,69 +809,72 @@ function showLogin() {
   `;
 
 
+  // Wait for DOM
   setTimeout(
-    setupRecaptcha,
-    500
+    initializeRecaptcha,
+    300
   );
-
 }
 
 
-// ======================================================
-// FIREBASE RECAPTCHA
-// ======================================================
+// =====================================================
+// INITIALIZE RECAPTCHA
+// =====================================================
 
-function setupRecaptcha() {
+function initializeRecaptcha() {
+
+  const container =
+    document.getElementById(
+      "recaptcha-container"
+    );
+
+
+  if (!container) {
+
+    console.error(
+      "reCAPTCHA container missing."
+    );
+
+    return;
+  }
+
+
+  // Clear previous verifier
+
+  if (recaptchaVerifier) {
+
+    try {
+      recaptchaVerifier.clear();
+    } catch (error) {
+      console.log(error);
+    }
+
+    recaptchaVerifier = null;
+  }
+
 
   try {
 
-    const container =
-      document.getElementById(
-        "recaptcha-container"
-      );
+    /*
+      Firebase v10 COMPAT API
 
-
-    if (!container) {
-
-      console.log(
-        "reCAPTCHA container not found."
-      );
-
-      return;
-
-    }
-
-
-    if (recaptchaVerifier) {
-
-      try {
-
-        recaptchaVerifier.clear();
-
-      } catch (error) {
-
-        console.log(error);
-
-      }
-
-      recaptchaVerifier = null;
-
-    }
-
+      Correct constructor:
+      RecaptchaVerifier(
+        container,
+        parameters
+      )
+    */
 
     recaptchaVerifier =
       new firebase.auth.RecaptchaVerifier(
-
         "recaptcha-container",
-
         {
-
           size: "normal",
 
           callback: function () {
 
             console.log(
-              "reCAPTCHA verified."
+              "reCAPTCHA completed."
             );
 
           },
@@ -918,9 +887,7 @@ function setupRecaptcha() {
               );
 
             }
-
         }
-
       );
 
 
@@ -929,7 +896,7 @@ function setupRecaptcha() {
       .then(function () {
 
         console.log(
-          "reCAPTCHA loaded successfully."
+          "reCAPTCHA loaded."
         );
 
       })
@@ -946,71 +913,64 @@ function setupRecaptcha() {
   } catch (error) {
 
     console.error(
-      "reCAPTCHA setup error:",
+      "reCAPTCHA initialization error:",
       error
     );
 
+    recaptchaVerifier = null;
   }
-
 }
 
 
-// ======================================================
+// =====================================================
 // SEND OTP
-// ======================================================
+// =====================================================
 
 async function sendOTP() {
 
-  const phoneInput =
+  const phoneElement =
     document.getElementById("phone");
 
   const button =
     document.getElementById("sendOtpBtn");
 
 
-  if (!phoneInput) {
+  if (!phoneElement) {
 
     alert(
-      "Phone input not found."
+      "Phone number field not found."
     );
 
     return;
-
   }
 
 
   const phone =
-    phoneInput.value.trim();
+    phoneElement.value.trim();
 
 
-  // Correct Indian phone validation
+  // Indian number validation
 
   if (!/^\+91[6-9]\d{9}$/.test(phone)) {
 
     alert(
-      "Enter a valid Indian mobile number.\n\n" +
-      "Example:\n" +
-      "+919876543210"
+      "Enter valid Indian mobile number.\n\n" +
+      "Example:\n+919876543210"
     );
 
     return;
-
   }
 
-
-  // Check reCAPTCHA
 
   if (!recaptchaVerifier) {
 
     alert(
-      "reCAPTCHA is not ready.\n\n" +
-      "Please wait 2 seconds and try again."
+      "Please wait for reCAPTCHA to load."
     );
 
-    setupRecaptcha();
+    initializeRecaptcha();
 
     return;
-
   }
 
 
@@ -1024,11 +984,8 @@ async function sendOTP() {
 
     confirmationResult =
       await auth.signInWithPhoneNumber(
-
         phone,
-
         recaptchaVerifier
-
       );
 
 
@@ -1036,30 +993,21 @@ async function sendOTP() {
       "otpArea"
     ).innerHTML = `
 
-      <div
-        style="
-          margin-top:15px;
-        "
+      <input
+        id="otp"
+        type="text"
+        inputmode="numeric"
+        autocomplete="one-time-code"
+        maxlength="6"
+        placeholder="Enter 6-digit OTP"
       >
 
-        <input
-          id="otp"
-          type="text"
-          inputmode="numeric"
-          autocomplete="one-time-code"
-          maxlength="6"
-          placeholder="Enter 6-digit OTP"
-        >
+      <button
+        onclick="verifyOTP()">
 
+        Verify OTP
 
-        <button
-          onclick="verifyOTP()">
-
-          Verify OTP
-
-        </button>
-
-      </div>
+      </button>
 
     `;
 
@@ -1073,36 +1021,28 @@ async function sendOTP() {
   } catch (error) {
 
     console.error(
-      "OTP ERROR:",
+      "Firebase OTP Error:",
       error
     );
 
 
     alert(
-
-      "OTP could not be sent.\n\n" +
-
-      "Error Code: " +
+      "OTP Error\n\n" +
       error.code +
-
       "\n\n" +
-
       error.message
-
     );
 
 
-    if (recaptchaVerifier) {
+    // Reset reCAPTCHA
 
-      try {
+    try {
 
-        recaptchaVerifier.clear();
+      recaptchaVerifier.clear();
 
-      } catch (e) {
+    } catch (e) {
 
-        console.log(e);
-
-      }
+      console.log(e);
 
     }
 
@@ -1111,7 +1051,7 @@ async function sendOTP() {
 
 
     setTimeout(
-      setupRecaptcha,
+      initializeRecaptcha,
       500
     );
 
@@ -1122,54 +1062,51 @@ async function sendOTP() {
 
   button.textContent =
     "Send OTP";
-
 }
 
 
-// ======================================================
+// =====================================================
 // VERIFY OTP
-// ======================================================
+// =====================================================
 
 async function verifyOTP() {
 
-  const otpInput =
+  const otpElement =
     document.getElementById("otp");
 
 
-  if (!otpInput) {
+  if (!otpElement) {
 
     alert(
       "Please request OTP first."
     );
 
     return;
-
   }
 
 
   const otp =
-    otpInput.value.trim();
+    otpElement.value.trim();
 
 
   if (!/^\d{6}$/.test(otp)) {
 
     alert(
-      "Enter the 6-digit OTP."
+      "Enter valid 6-digit OTP."
     );
 
     return;
-
   }
 
 
   if (!confirmationResult) {
 
     alert(
-      "Please request OTP first."
+      "OTP session not found. " +
+      "Please request OTP again."
     );
 
     return;
-
   }
 
 
@@ -1182,7 +1119,7 @@ async function verifyOTP() {
 
 
     console.log(
-      "Login successful:",
+      "User logged in:",
       result.user.phoneNumber
     );
 
@@ -1198,26 +1135,22 @@ async function verifyOTP() {
   } catch (error) {
 
     console.error(
-      "VERIFY ERROR:",
+      "OTP verification error:",
       error
     );
 
 
     alert(
-
       "OTP verification failed.\n\n" +
       error.message
-
     );
-
   }
-
 }
 
 
-// ======================================================
-// ACCOUNT PAGE
-// ======================================================
+// =====================================================
+// ACCOUNT
+// =====================================================
 
 function showAccount() {
 
@@ -1231,24 +1164,14 @@ function showAccount() {
 
       <div class="cart-card">
 
-        <div class="success">
+        <h2>
+          Login Successful
+        </h2>
 
-          <h2>
-            Login Successful
-          </h2>
-
-
-          <p>
-
-            Phone:
-            ${user ? user.phoneNumber : ""}
-
-          </p>
-
-        </div>
-
-
-        <br>
+        <p>
+          Phone:
+          ${user ? user.phoneNumber : ""}
+        </p>
 
 
         <button
@@ -1261,10 +1184,7 @@ function showAccount() {
 
         <button
           onclick="logout()"
-          style="
-            background:#555;
-            margin-left:8px;
-          ">
+          style="background:#555;margin-left:8px;">
 
           Logout
 
@@ -1278,26 +1198,29 @@ function showAccount() {
 
 
   updateLoginButton();
-
 }
 
 
-// ======================================================
+// =====================================================
 // LOGOUT
-// ======================================================
+// =====================================================
 
 function logout() {
 
   auth.signOut()
-
     .then(function () {
+
+      console.log(
+        "User logged out."
+      );
+
+      confirmationResult = null;
 
       updateLoginButton();
 
       showHome();
 
     })
-
     .catch(function (error) {
 
       console.error(
@@ -1306,13 +1229,12 @@ function logout() {
       );
 
     });
-
 }
 
 
-// ======================================================
-// UPDATE LOGIN BUTTON
-// ======================================================
+// =====================================================
+// LOGIN BUTTON
+// =====================================================
 
 function updateLoginButton() {
 
@@ -1340,15 +1262,13 @@ function updateLoginButton() {
 
     button.onclick =
       showLogin;
-
   }
-
 }
 
 
-// ======================================================
-// FIREBASE AUTH STATE
-// ======================================================
+// =====================================================
+// AUTH STATE
+// =====================================================
 
 auth.onAuthStateChanged(
   function (user) {
@@ -1372,15 +1292,37 @@ auth.onAuthStateChanged(
       );
 
     }
-
   }
 );
 
 
-// ======================================================
-// START SHOPZONE
-// ======================================================
+// =====================================================
+// SEARCH
+// =====================================================
+
+const searchBox =
+  document.getElementById("search");
+
+
+if (searchBox) {
+
+  searchBox.addEventListener(
+    "input",
+    function () {
+
+      renderProducts();
+
+    }
+  );
+}
+
+
+// =====================================================
+// START WEBSITE
+// =====================================================
 
 updateCartCount();
+
+updateLoginButton();
 
 showHome();
